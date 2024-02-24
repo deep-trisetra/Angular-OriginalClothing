@@ -1,0 +1,14 @@
+<header class="wrapper row full-center">
+  <!-- Logo -->
+  <img src="assets/images/oc-logo.svg" alt="Logo image" class="logo" />
+
+  <!-- Navigation -->
+  <div class="row gap-1">
+    <a *ngIf="!showTieredMenu" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+    <a *ngIf="!showTieredMenu" routerLink="/about-us" routerLinkActive="active">About</a>
+    <a *ngIf="!showTieredMenu" routerLink="/cart" routerLinkActive="active">Cart</a>
+  </div>
+
+  <button *ngIf="showTieredMenu" type="button" pButton label="Toggle Menu" (click)="toggleMenu($event)"><i class="pi pi-bars"></i></button>
+  <p-tieredMenu *ngIf="showTieredMenu" [model]="items" [popup]="true" #menu></p-tieredMenu>
+</header>
