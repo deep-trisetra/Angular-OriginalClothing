@@ -4,6 +4,7 @@ import { ProductsService } from '../services/products.service';
 
 import { CommonModule } from '@angular/common';
 import { CartproductsComponent } from '../components/cartproducts/cartproducts.component';
+import { CartProductsService } from '../services/cart-products.service';
 
 @Component({
   selector: 'app-cart',
@@ -13,7 +14,7 @@ import { CartproductsComponent } from '../components/cartproducts/cartproducts.c
   styleUrl: './cart.component.scss',
 })
 export class CartComponent {
-  constructor(private productsService: ProductsService) {}
+  constructor(private productsService: ProductsService, private cartProductService: CartProductsService) {}
   products: Product[] = [];
   totalAmount: number = 0;
 
@@ -36,6 +37,11 @@ export class CartComponent {
     this.addToCart(product, product.id);
   }
 
+  EmptyCart() {
+    this.deleteProducts();
+    this.cartProductService.emptyCartCount();
+  }
+
   fetchProducts(page: number, perPage: number) {
     this.productsService
       .getProducts(`http://localhost:3000/cart`, { page, perPage })
@@ -47,6 +53,10 @@ export class CartComponent {
             (acc, curr) => acc + curr.quantity * parseInt(curr.price),
             0
           );
+          this.cartProductService.updateCartCount(data.items.reduce(
+            (acc, curr) => acc + curr.quantity,
+            0
+          ))
           console.log(this.products);
         },
         error: (error) => {
@@ -64,7 +74,6 @@ export class CartComponent {
         next: (data) => {
           console.log(data);
           this.fetchProducts(0, 12);
-          // this.resetPaginator();
         },
         error: (error) => {
           console.log(error);
@@ -76,6 +85,20 @@ export class CartComponent {
     console.log('5');
     this.productsService
       .deleteProduct(`http://localhost:3000/cart/${id}`)
+      .subscribe({
+        next: (data) => {
+          console.log(data);
+          this.fetchProducts(0, 12);
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
+  }
+
+  deleteProducts() {
+    this.productsService
+      .deleteProduct(`http://localhost:3000/cart`)
       .subscribe({
         next: (data) => {
           console.log(data);

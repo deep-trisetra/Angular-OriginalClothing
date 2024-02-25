@@ -15,6 +15,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ButtonModule } from 'primeng/button';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { HomeComponent } from '../../home/home.component';
+import { CartProductsService } from '../../services/cart-products.service';
 
 @Component({
   selector: 'app-cartproducts',
@@ -34,7 +35,7 @@ import { HomeComponent } from '../../home/home.component';
   styleUrl: './cartproducts.component.scss',
 })
 export class CartproductsComponent {
-  constructor(private confirmationService: ConfirmationService) {}
+  constructor(private confirmationService: ConfirmationService, private cartProductService: CartProductsService) {}
 
   @ViewChild('removeFromCartButton') removeFromCartButton: any;
 
@@ -65,6 +66,7 @@ export class CartproductsComponent {
 
   removeProduct() {
     console.log('2');
+    this.cartProductService.updateHomeCartCount(this.product.quantity * -1);
     this.delete.emit(this.product);
   }
 

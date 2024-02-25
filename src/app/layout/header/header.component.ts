@@ -3,10 +3,10 @@ import { Component, HostListener, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TieredMenu, TieredMenuModule } from 'primeng/tieredmenu';
 import { MenuItem } from 'primeng/api';
-
 import { Product, Products } from '../../../types';
 import { ProductsService } from '../../services/products.service';
 import { CartproductsComponent } from '../../components/cartproducts/cartproducts.component';
+import { CartProductsService } from '../../services/cart-products.service';
 
 @Component({
   selector: 'app-header',
@@ -28,7 +28,7 @@ export class HeaderComponent {
   totalQuantity: number = 0;
   cartProducts: Product[] = [];
 
-  constructor(private productsService: ProductsService) {
+  constructor(private productsService: ProductsService, private cartProductService : CartProductsService) {
     this.items = [
       { label: 'Home', routerLink: '/' },
       { label: 'About', routerLink: '/about-us' },
@@ -53,10 +53,13 @@ export class HeaderComponent {
         next: (data: Products) => {
           console.log(data);
           this.cartProducts = data.items;
-          this.totalQuantity = data.items.reduce(
-            (acc, curr) => acc + curr.quantity,
-            0
-          );
+          // this.totalQuantity = data.items.reduce(
+          //   (acc, curr) => acc + curr.quantity,
+          //   0
+          // );
+          this.cartProductService.cartCount.subscribe(count => {
+            this.totalQuantity = count;
+          });
           console.log(this.cartProducts);
         },
         error: (error) => {

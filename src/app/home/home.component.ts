@@ -7,6 +7,7 @@ import { Paginator, PaginatorModule } from 'primeng/paginator';
 import { EditPopupComponent } from '../components/edit-popup/edit-popup.component';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
+import { CartProductsService } from '../services/cart-products.service';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +24,7 @@ import { CarouselModule } from 'primeng/carousel';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  constructor(private productsService: ProductsService) {}
+  constructor(private productsService: ProductsService, private cartProductService: CartProductsService) {}
 
   @ViewChild('paginator') paginator: Paginator | undefined;
 
@@ -108,6 +109,10 @@ export class HomeComponent {
         next: (data: Products) => {
           this.products = data.items;
           this.totalRecords = data.total;
+          this.cartProductService.updateHomeCartCount(this.products.reduce(
+            (acc, curr) => acc + curr.quantity,
+            0
+          ));
         },
         error: (error) => {
           console.log(error);
@@ -168,6 +173,7 @@ export class HomeComponent {
           console.log(data);
           this.fetchProducts(0, this.rows);
           this.resetPaginator();
+          this.cartProductService.updateHomeCartCount(product.quantity);
         },
         error: (error) => {
           console.log(error);
