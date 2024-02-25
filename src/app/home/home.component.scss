@@ -6,3 +6,18 @@
 
   box-shadow: 0 0 10px 2.5px rgba(0, 0, 0, 0.2);
 }
+.product-container {
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, max-content));
+  grid-gap: 2rem;
+  justify-content: center;
+  .child-component {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+  }
+}

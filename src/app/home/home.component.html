@@ -17,13 +17,14 @@
   </p-carousel>
 
   <!-- Products Section -->
-  <div class="row wrap gap-305 full-center">
+  <div class="product-container">
     <app-product
       *ngFor="let product of products"
       [product]="product"
       (edit)="toggleEditPopup($event)"
       (delete)="toggleDeletePopup($event)"
       (add)="toggleAddToCartPopup($event)"
+      class="child-component"
     ></app-product>
   </div>
 
