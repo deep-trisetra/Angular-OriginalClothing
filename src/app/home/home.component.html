@@ -9,6 +9,13 @@
     class="add-product-btn"
   ></button>
 
+  <!-- Carousel Section -->
+  <p-carousel [value]="carousel" [autoplayInterval]="2000" [circular]="false">
+    <ng-template let-item pTemplate="item">
+      <img src="{{ item.image }}"  />
+    </ng-template>
+  </p-carousel>
+
   <!-- Products Section -->
   <div class="row wrap gap-305 full-center">
     <app-product

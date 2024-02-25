@@ -1,11 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 import { ProductsService } from '../services/products.service';
-import { Product, Products } from '../../types';
+import { Carousel, Product, Products } from '../../types';
 import { ProductComponent } from '../components/product/product.component';
 import { CommonModule } from '@angular/common';
 import { Paginator, PaginatorModule } from 'primeng/paginator';
 import { EditPopupComponent } from '../components/edit-popup/edit-popup.component';
 import { ButtonModule } from 'primeng/button';
+import { CarouselModule } from 'primeng/carousel';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,7 @@ import { ButtonModule } from 'primeng/button';
     PaginatorModule,
     EditPopupComponent,
     ButtonModule,
+    CarouselModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -26,6 +28,7 @@ export class HomeComponent {
   @ViewChild('paginator') paginator: Paginator | undefined;
 
   products: Product[] = [];
+  carousel: Carousel[]=[];
 
   totalRecords: number = 0;
   rows: number = 12;
@@ -175,5 +178,17 @@ export class HomeComponent {
   ngOnInit() {
     this.fetchProducts(0, this.rows);
     // this.fetchCartProducts(0, 12);
+
+    this.carousel = [
+      {
+        image: "https://assets.ajio.com/cms/AJIO/WEB/D-1.0-UHP-07022024-NC-Z20-P4-TommyHilfiger-Hidesign-UPTO60.jpg"
+      },
+      {
+        image:"https://assets.ajio.com/cms/AJIO/WEB/D-1.0-UHP-07022024-NC-Z20-P2-MAC-Clinique-FLAT20.jpg"
+      },
+      {
+        image: "https://assets.ajio.com/cms/AJIO/WEB/D-1.0-UHP-07022024-NC-Z20-P5-Guess-CalvinKlein-UPTO85.jpg"
+      }
+    ]
   }
 }

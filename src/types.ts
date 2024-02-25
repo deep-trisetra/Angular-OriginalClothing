@@ -27,6 +27,10 @@ export interface Options {
     | boolean;
 }
 
+export interface Carousel {
+  image:string
+}
+
 export interface Products {
   items: Product[];
   total: number;

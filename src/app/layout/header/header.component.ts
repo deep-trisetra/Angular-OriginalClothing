@@ -3,7 +3,7 @@ import { Component, HostListener, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TieredMenu, TieredMenuModule } from 'primeng/tieredmenu';
 import { MenuItem } from 'primeng/api';
-import { CarouselModule } from 'primeng/carousel';
+
 import { Product, Products } from '../../../types';
 import { ProductsService } from '../../services/products.service';
 import { CartproductsComponent } from '../../components/cartproducts/cartproducts.component';
@@ -15,7 +15,6 @@ import { CartproductsComponent } from '../../components/cartproducts/cartproduct
     RouterModule,
     CommonModule,
     TieredMenuModule,
-    CarouselModule,
     CartproductsComponent,
   ],
   templateUrl: './header.component.html',
