@@ -1,9 +1,16 @@
 <!-- Products Section -->
-<div class="row wrap gap-305 full-center">
-  <app-cartproducts
-    *ngFor="let product of products"
-    [product]="product"
-    (delete)="toggleDeletePopup($event)"
-    (update)="toggleAddToCartPopup($event)"
-  ></app-cartproducts>
+<div class="cart__container">
+  <div class="column gap-305 cart-list__container">
+    <app-cartproducts
+      *ngFor="let product of products"
+      [product]="product"
+      (delete)="toggleDeletePopup($event)"
+      (update)="toggleAddToCartPopup($event)"
+    ></app-cartproducts>
+  </div>
+  <div class="amount__container">
+    <span>Amount to be paid:&nbsp;${{ totalAmount }}</span>
+
+    <button class="payBtn">Pay now</button>
+  </div>
 </div>

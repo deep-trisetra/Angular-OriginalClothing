@@ -15,6 +15,7 @@ import { CartproductsComponent } from '../components/cartproducts/cartproducts.c
 export class CartComponent {
   constructor(private productsService: ProductsService) {}
   products: Product[] = [];
+  totalAmount: number = 0;
 
   toggleDeletePopup(product: Product) {
     if (!product.id) {
@@ -42,6 +43,10 @@ export class CartComponent {
         next: (data: Products) => {
           console.log(data);
           this.products = data.items;
+          this.totalAmount = data.items.reduce(
+            (acc, curr) => acc + curr.quantity * parseInt(curr.price),
+            0
+          );
           console.log(this.products);
         },
         error: (error) => {
