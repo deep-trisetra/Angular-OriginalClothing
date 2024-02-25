@@ -1,36 +1,53 @@
 <div class="column gap-1 wrapper">
-    <img [src]="product.image" alt="Product Thumbnail" />
-    <h2 class="title">{{ product.name| truncateName: 16: "..." }}</h2>
-  
-    <div class="row gap-05">
-      <span class="price-label">Price:</span>
-      <span class="price">{{ product.price | price }}</span>
+  <img [src]="product.image" alt="Product Thumbnail" />
+  <h2 class="title">{{ product.name | truncateName : 16 : "..." }}</h2>
+
+  <div class="row gap-05">
+    <span class="price-label">Price:</span>
+    <span class="price">{{ product.price | price }}</span>
+  </div>
+
+  <p-rating
+    [(ngModel)]="product.rating"
+    [readonly]="true"
+    iconCancelClass="hidden"
+  ></p-rating>
+
+  <div class="card flex flex-wrap gap-3 p-fluid">
+    <div class="flex-auto">
+      <label class="mb-2 block font-bold" for="stacked">Quantity</label>
+      <!-- <p-inputNumber [(ngModel)]="value" inputId="quantity"> </p-inputNumber> -->
+      <p-inputNumber
+        [(ngModel)]="value"
+        mode="decimal"
+        [showButtons]="true"
+        inputId="minmax-buttons"
+        [min]="1"
+        [max]="100"
+        (ngModelChange)="addToCart(value)"
+      >
+      </p-inputNumber>
     </div>
-  
-    <p-rating
-      [(ngModel)]="product.rating"
-      [readonly]="true"
-      iconCancelClass="hidden"
-    ></p-rating>
-  
-    <div class="row gap-05">
-      <!-- <button
+  </div>
+
+  <div class="row gap-05">
+    <!-- <button
         type="button"
         pButton
         icon="pi pi-pencil"
         (click)="editProduct()"
         label="Edit"
       ></button> -->
-      <button
-        type="button"
-        pButton
-        icon="pi pi-trash"
-        (click)="confirmCartRemove()"
-        label="Remove"
-        class="p-button-danger"
-        #removeFromCartButton
-      ></button>
-    </div>
+    <button
+      type="button"
+      pButton
+      icon="pi pi-trash"
+      (click)="confirmCartRemove()"
+      label="Remove"
+      class="p-button-danger"
+      #removeFromCartButton
+    ></button>
   </div>
-  
-  <p-confirmPopup></p-confirmPopup>
+</div>
+
+<p-confirmPopup></p-confirmPopup>

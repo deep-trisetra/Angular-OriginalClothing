@@ -4,11 +4,51 @@
 
   <!-- Navigation -->
   <div class="row gap-1">
-    <a *ngIf="!showTieredMenu" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
-    <a *ngIf="!showTieredMenu" routerLink="/about-us" routerLinkActive="active">About</a>
-    <a *ngIf="!showTieredMenu" routerLink="/cart" routerLinkActive="active">Cart</a>
+    <a
+      *ngIf="!showTieredMenu"
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >Home</a
+    >
+    <a *ngIf="!showTieredMenu" routerLink="/about-us" routerLinkActive="active"
+      >About</a
+    >
+    <a
+      class="cart__container"
+      (mouseover)="showCart()"
+      (mouseleave)="isHover = false"
+      *ngIf="!showTieredMenu"
+      routerLink="/cart"
+      routerLinkActive="active"
+    >
+      <i class="pi pi-shopping-cart cartIcon" style="font-size: 1.8rem">
+        <span *ngIf="totalQuantity > 0" class="cartList__count">{{
+          totalQuantity
+        }}</span>
+      </i>
+      <div *ngIf="isHover" class="hover__container">
+        <app-cartproducts
+          *ngFor="let product of cartProducts"
+          [product]="product"
+        ></app-cartproducts>
+      </div>
+    </a>
   </div>
 
-  <button *ngIf="showTieredMenu" type="button" pButton label="Toggle Menu" (click)="toggleMenu($event)"><i class="pi pi-bars"></i></button>
-  <p-tieredMenu *ngIf="showTieredMenu" [model]="items" [popup]="true" #menu></p-tieredMenu>
+  <button
+    *ngIf="showTieredMenu"
+    type="button"
+    pButton
+    label="Toggle Menu"
+    (click)="toggleMenu($event)"
+  >
+    <i class="pi pi-bars"></i>
+  </button>
+  <p-tieredMenu
+    *ngIf="showTieredMenu"
+    [model]="items"
+    [popup]="true"
+    #menu
+  ></p-tieredMenu>
 </header>

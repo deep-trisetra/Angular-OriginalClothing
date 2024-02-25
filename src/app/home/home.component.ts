@@ -16,12 +16,10 @@ import { ButtonModule } from 'primeng/button';
     PaginatorModule,
     EditPopupComponent,
     ButtonModule,
-    
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-  
 export class HomeComponent {
   constructor(private productsService: ProductsService) {}
 
@@ -70,18 +68,19 @@ export class HomeComponent {
   };
 
   onConfirmEdit(product: Product) {
-    if (!this.selectedProduct.id) {//(product, this.selectedProduct.id ?? 0) same work
+    if (!this.selectedProduct.id) {
+      //(product, this.selectedProduct.id ?? 0) same work
       return;
     }
-    
+
     this.editProduct(product, this.selectedProduct.id);
     this.displayEditPopoup(false);
   }
 
-  displayEditPopoup(val:boolean){
+  displayEditPopoup(val: boolean) {
     this.displayEditPopup = val;
   }
-  
+
   onConfirmAdd(product: Product) {
     this.addProduct(product);
     this.displayAddPopup = false;
@@ -175,5 +174,6 @@ export class HomeComponent {
 
   ngOnInit() {
     this.fetchProducts(0, this.rows);
+    // this.fetchCartProducts(0, 12);
   }
 }

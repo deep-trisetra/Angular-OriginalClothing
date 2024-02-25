@@ -12,19 +12,27 @@ import { CartproductsComponent } from '../components/cartproducts/cartproducts.c
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss',
 })
-  
 export class CartComponent {
   constructor(private productsService: ProductsService) {}
   products: Product[] = [];
 
   toggleDeletePopup(product: Product) {
     if (!product.id) {
-      console.log("3")
+      console.log('3');
       return;
     }
 
-    console.log("4", product.id);
+    console.log('4', product.id);
     this.deleteProduct(product.id);
+  }
+
+  toggleAddToCartPopup(product: Product) {
+    if (!product.id) {
+      console.log('3');
+      return;
+    }
+
+    this.addToCart(product, product.id);
   }
 
   fetchProducts(page: number, perPage: number) {
@@ -32,7 +40,7 @@ export class CartComponent {
       .getProducts(`http://localhost:3000/cart`, { page, perPage })
       .subscribe({
         next: (data: Products) => {
-          console.log(data)
+          console.log(data);
           this.products = data.items;
           console.log(this.products);
         },
@@ -42,8 +50,25 @@ export class CartComponent {
       });
   }
 
+  addToCart(product: Product, id: number) {
+    console.log(product, id);
+
+    this.productsService
+      .addProduct(`http://localhost:3000/updateCartItem/${id}`, product)
+      .subscribe({
+        next: (data) => {
+          console.log(data);
+          this.fetchProducts(0, 12);
+          // this.resetPaginator();
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
+  }
+
   deleteProduct(id: number) {
-    console.log("5")
+    console.log('5');
     this.productsService
       .deleteProduct(`http://localhost:3000/cart/${id}`)
       .subscribe({

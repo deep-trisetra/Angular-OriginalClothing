@@ -1,6 +1,6 @@
 <div class="column gap-1 wrapper">
   <img [src]="product.image" alt="Product Thumbnail" />
-  <h2 class="title">{{ product.name| truncateName: 16: "..." }}</h2>
+  <h2 class="title">{{ product.name | truncateName : 16 : "..." }}</h2>
 
   <div class="row gap-05">
     <span class="price-label">Price:</span>
@@ -15,20 +15,30 @@
 
   <div class="card flex flex-wrap gap-3 p-fluid">
     <div class="flex-auto">
-        <label class="mb-2 block font-bold" for="stacked">Quantity</label>
-        <p-inputNumber [(ngModel)]="value" inputId="quantity"> </p-inputNumber>
+      <label class="mb-2 block font-bold" for="stacked">Quantity</label>
+      <!-- <p-inputNumber [(ngModel)]="value" inputId="quantity"> </p-inputNumber> -->
+      <p-inputNumber
+        [(ngModel)]="value"
+        mode="decimal"
+        [showButtons]="true"
+        inputId="minmax-buttons"
+        [min]="0"
+        [max]="100"
+        (ngModelChange)="setQuantity(value)"
+      >
+      </p-inputNumber>
     </div>
-    </div>
+  </div>
 
   <div class="row gap-05">
-    <button
+    <!-- <button
       type="button"
       pButton
       icon="pi pi-pencil"
       (click)="editProduct()"
       label="Edit"
-    ></button>
-    <button
+    ></button> -->
+    <!-- <button
       type="button"
       pButton
       icon="pi pi-trash"
@@ -36,11 +46,12 @@
       label="Delete"
       class="p-button-danger"
       #deleteButton
-    ></button>
+    ></button> -->
     <button
+      class="addToCartBtn"
       type="button"
       pButton
-      icon="pi pi-trash"
+      icon="pi pi-shopping-cart"
       (click)="addToCart()"
       label="Add to Cart"
       #AddtoCartButton
